@@ -37,6 +37,8 @@
       - tmux
       - gedit
       - chromium-browser
+      - imagemagick
+      - pandoc
       - exuberant-ctags
       - htop
       - ipython
