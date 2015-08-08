@@ -28,6 +28,7 @@
   - name: Install common packages
     apt: pkg={{ item }}
     with_items:
+      - debian-goodies
       - vim-gtk
       - cmake
       - rake
@@ -139,10 +140,10 @@
     apt_key: id=314DF160 url='http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x089EBE08314DF160' 
 
   - name: Ensure ppa:ubuntugis-unstable/ppa repository is added to the apt sources
-    apt_repository: repo='deb http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu utopic main' state=present
+    apt_repository: repo='deb http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu vivid main' state=present
 
   - name: Ensure ppa:ubuntugis-unstable/ppa source repository is added to the apt sources
-    apt_repository: repo='deb-src http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu utopic main' state=present update_cache=yes
+    apt_repository: repo='deb-src http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu vivid main' state=present update_cache=yes
 
 
   # Geospatial packages
@@ -174,7 +175,7 @@
     apt_key: id=314DF160 url='http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x6B827C12C2D425E227EDCA75089EBE08314DF160' 
 
   - name: Ensure ppa:chris-lea/node.js to repository is added to the apt sources
-    apt_repository: repo='deb http://ppa.launchpad.net/chris-lea/node.js/ubuntu utopic main' state=present update_cache=yes
+    apt_repository: repo='deb http://ppa.launchpad.net/chris-lea/node.js/ubuntu vivid main' state=present update_cache=yes
 
   # node-js
   - name: Make sure nodejs is installed
