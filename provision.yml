@@ -54,6 +54,20 @@
       - libreoffice
       - lolcat
 
+  # remove unneeded packages
+  - name: Remove unneeded packages
+    apt: pkg={{ item }} state=absent
+    with_items:
+      - gnumeric
+      - abiword
+      - thunderbird
+      - gnome-mines
+      - gnome-sudoku
+      - orage
+      - qt4-designer
+      - gnome-user-guide
+      - gimp-help-en
+
   # Fonts
   - name: Get powerline fonts.
     sudo: no
