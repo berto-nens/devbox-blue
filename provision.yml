@@ -28,7 +28,7 @@
   - name: Install common packages
     apt: pkg={{ item }}
     with_items:
-      - vim-nox
+      - vim-gtk
       - cmake
       - rake
       - ruby-dev
@@ -51,6 +51,7 @@
       - autojump
       - qt4-qtconfig
       - libreoffice
+      - lolcat
 
   # Fonts
   - name: Get powerline fonts.
