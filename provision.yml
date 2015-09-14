@@ -53,10 +53,11 @@
       - qt4-qtconfig
       - libreoffice
       - lolcat
+      - cmus
 
   # remove unneeded packages
   - name: Remove unneeded packages
-    apt: pkg={{ item }} state=absent
+    apt: pkg={{ item }} state=absent purge=True
     with_items:
       - gnumeric
       - abiword
@@ -66,6 +67,8 @@
       - orage
       - gnome-user-guide
       - gimp-help-en
+      - libdnet
+      - dnet-common
 
   # Fonts
   - name: Get powerline fonts.
