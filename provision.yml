@@ -206,3 +206,18 @@
 
   - name: Disable avahi service
     service: name=avahi-daemon enabled=no state=stopped
+
+  # setup tmux directories
+  - name: Create .tmux dir
+    file: >
+        path={{ home_dir }}/.tmux/plugins/tpm/
+        owner={{ local_user }}
+        group={{ local_user }}
+        mode=0755
+        state=directory
+        recurse=yes
+
+  - name: Get tmux plugin manager (TPM)
+    sudo: no
+    git: repo=https://github.com/tmux-plugins/tpm
+         dest={{ home_dir }}/.tmux/plugins/tpm
