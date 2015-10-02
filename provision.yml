@@ -69,6 +69,7 @@
       - gimp-help-en
       - libdnet
       - dnet-common
+      - avahi-daemon
 
   # Fonts
   - name: Get powerline fonts.
@@ -203,9 +204,6 @@
      - bower
      - grunt-cli
      - jshint
-
-  - name: Disable avahi service
-    service: name=avahi-daemon enabled=no state=stopped
 
   # setup tmux directories
   - name: Create .tmux dir
