@@ -43,6 +43,7 @@
       - exuberant-ctags
       - htop
       - ipython
+      - python-ipdb
       - markdown
       - cifs-utils
       - curl
