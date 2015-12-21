@@ -2,7 +2,7 @@
 - hosts: local
   sudo: yes
   vars:
-    home_dir: "/home/arjen/"
+    home_dir: "/home/berto/"
     download_dir: "{{ home_dir }}Downloads/"
 
   tasks:
@@ -16,11 +16,7 @@
         mode=0755
         state=directory
     with_items:
-      - 'code'
-      - 'Downloads/fonts'
-      - '.fonts'
-      - '.config/fontconfig/conf.d'
-      - 'bin'
+      - 'workspace'
 
   # NOTE: split in ruby-dev, python-dev, common, vagrant roles.
 
@@ -29,15 +25,13 @@
     apt: pkg={{ item }}
     with_items:
       - debian-goodies
-      - vim-gtk
       - cmake
       - rake
       - ruby-dev
       - python-dev
       - git-core
       - tmux
-      - gedit
-      - chromium-browser
+      - chrome-browser
       - imagemagick
       - pandoc
       - exuberant-ctags
@@ -51,10 +45,17 @@
       - pgadmin3
       - zsh
       - autojump
-      - qt4-qtconfig
       - libreoffice
       - lolcat
       - cmus
+
+  # Sublime
+  - name: Get SublimeText deb file
+    sudo: no
+    get_url: url="http://c758482.r82.cf2.rackcdn.com/sublime-text_build-3080_amd64.deb" dest="{{ download_dir }}sublime.deb"
+
+  - name: Install SublimeText
+    apt: deb="{{ download_dir }}sublime.deb"
 
   # remove unneeded packages
   - name: Remove unneeded packages
@@ -71,53 +72,6 @@
       - libdnet
       - dnet-common
       - avahi-daemon
-
-  # Fonts
-  - name: Get powerline fonts.
-    sudo: no
-    get_url: url="https://github.com/powerline/powerline/raw/develop/font/{{ item }}" dest="{{ download_dir }}fonts/{{ item }}"
-    with_items:
-      - PowerlineSymbols.otf
-      - 10-powerline-symbols.conf
-
-  - name: Get adobe fonts.
-    sudo: no
-    git: repo=https://github.com/adobe-fonts/{{ item }}.git
-         dest={{ download_dir }}fonts/{{ item }}
-         version=release
-    with_items:
-      - source-sans-pro
-      - source-code-pro
-
-  - name: Symlink adobe fonts to valid X font path.
-    sudo: no
-    file: src={{ download_dir }}fonts/{{ item }}
-          dest={{ home_dir }}.fonts/{{ item }}
-          state=link
-          owner=arjen
-          group=arjen
-    with_items:
-      - source-sans-pro
-      - source-code-pro
-
-  - name: Symlink symbols to valid X font path.
-    sudo: no
-    file: src={{ download_dir }}fonts/PowerlineSymbols.otf
-          dest={{ home_dir }}.fonts/PowerLineSymbols.otf
-          state=link
-          owner=arjen
-          group=arjen
-
-  - name: Update font cache.
-    command: fc-cache -vf "{{ home_dir }}.fonts/"
-
-  - name: Symlink fontconfig file.
-    sudo: no
-    file: src={{ download_dir }}fonts/10-powerline-symbols.conf
-          path={{ home_dir }}.config/fontconfig/conf.d/10-powerline-symbols.conf
-          state=link
-          owner=arjen
-          group=arjen
 
   # Vagrant
   - name: Get vagrant deb file
@@ -172,7 +126,7 @@
       - qgis
 
   - name: Set zsh to default shell.
-    user: name=arjen shell=/bin/zsh
+    user: name=berto shell=/bin/zsh
 
   - name: Python packges
     pip: name={{ item }}
@@ -180,13 +134,6 @@
       - virtualenvwrapper
       - powerline-status
       - flake8
-
-  # Vim plugins
-  #- name: Compile Command-T VIM plugin.
-    #shell: rake make chdir="/home/arjen/.vim/bundle/Command-T/"
-
-  #- name: Compile YouCompleteMe VIM plugin.
-    #shell: ./install.sh chdir="/home/arjen/.vim/bundle/YouCompleteMe/"
 
     # nodejs ppa
   - name: Ensure ppa:chris-lea/node.js repository key is added
