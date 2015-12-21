@@ -105,10 +105,10 @@
     command: vagrant plugin list
     register: vagrant_plugins
 
-  #- name: Install Vagrant lxc provider.
-    #sudo: no
-    #shell: vagrant plugin install vagrant-lxc
-    #when: '"vagrant-lxc" not in vagrant_plugins'
+  - name: Install Vagrant lxc provider.
+    sudo: no
+    shell: vagrant plugin install vagrant-lxc
+    when: '"vagrant-lxc" not in vagrant_plugins'
 
   - name: Add lxc base boxes.
     sudo: no
