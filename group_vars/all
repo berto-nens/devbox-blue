@@ -1,3 +1,8 @@
 locale: en_US.UTF-8
 timezone: Europe/Amsterdam
 local_user: berto
+
+# Google chrome package url and name
+google_chrome_package_filename: 'google-chrome-stable_current_amd64.deb'
+google_chrome_base_url: 'https://dl.google.com/linux/direct'
+google_chrome_package_name: 'google-chrome-stable'

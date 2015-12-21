@@ -33,7 +33,6 @@
       - python-dev
       - git-core
       - tmux
-      - chrome-browser
       - imagemagick
       - pandoc
       - exuberant-ctags
@@ -49,6 +48,17 @@
       - autojump
       - libreoffice
       - cmus
+      - npm
+
+  # Chrome
+  - name: "apt | ensure Google linux signing key present"
+    apt_key: url=https://dl-ssl.google.com/linux/linux_signing_key.pub state=present
+
+  - name: "apt | ensure Google chrome repo present"
+    apt_repository: repo='deb http://dl.google.com/linux/chrome/deb/ stable main' state=present
+
+  - name: "apt | ensure Google chrome present"
+    apt: name=google-chrome-stable update_cache=yes
 
   # Sublime
   - name: Get SublimeText deb file
