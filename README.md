@@ -2,8 +2,7 @@
 
 ## Setup
 
-    sudo apt-get install python-pip git-core
-    sudo pip install ansible
-    git clone git@github.com:berto-nens/devbox-blue.git
+    sudo apt-get install python-pip git-core ansible
+    git clone https://github.com/berto-nens/devbox-blue
     cd devbox
     ansible-playbook -i local provision.yml -K
