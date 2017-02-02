@@ -50,6 +50,7 @@
       - cmus
       - npm
       - sshpass
+      - xclip
 
   # Chrome
   - name: "apt | ensure Google linux signing key present"
