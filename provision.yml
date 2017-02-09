@@ -4,6 +4,7 @@
   vars:
     home_dir: "/home/berto/"
     install_dir: "{{ home_dir }}install/"
+    download_dir: "{{ home_dir }}Downloads/"
 
   tasks:
 
@@ -51,6 +52,7 @@
       - npm
       - sshpass
       - xclip
+      - smbclient
 
   # Chrome
   - name: "apt | ensure Google linux signing key present"
@@ -87,3 +89,29 @@
       - avahi-daemon
       - vlc
       - cifs-utils
+
+  # Vagrant
+  - name: Get vagrant deb file
+    become: no
+    get_url: url="https://releases.hashicorp.com/vagrant/1.9.1/vagrant_1.9.1_x86_64.deb" dest="{{ download_dir }}vagrant.deb"
+
+  - name: Install Vagrant
+    apt: deb="{{ download_dir }}vagrant.deb"
+
+  - name: Install vagrant lxc dependencies.
+    apt: pkg={{ item }} 
+    with_items:
+      - redir
+      - bridge-utils
+      - lxc
+      - lxc-templates
+      - cgroup-lite
+
+  - name: List vagrant plugins
+    command: vagrant plugin list
+    register: vagrant_plugins
+
+  - name: Install Vagrant lxc provider.
+    become: no
+    shell: vagrant plugin install vagrant-lxc
+    when: '"vagrant-lxc" not in vagrant_plugins'
